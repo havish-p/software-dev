@@ -8,7 +8,7 @@
 <body>
     <div class="form-container">
         <div class="login-header">
-            <img src="{{ url_for('static', filename='logo transperant.png') }}" alt="Art has no bounds" class="login-logo">
+            <img src="{{ url_for('static', filename='logo transperant.png') }}" width="300" hieght="200">
         </div>
 
         <h2>Login</h2>
@@ -20,8 +20,8 @@
         {% endwith %}
 
         <form action="{{ url_for('login') }}" method="post">
-            <input type="text" id="username" name="username" placeholder="Username" required><br>
-            <input type="password" id="password" name="password" placeholder="Password" required><br>
+            <input type="text" id="username" name="username" placeholder="Username" required style="margin-left: -11px;"><br>
+            <input type="password" id="password" name="password" placeholder="Password" required style="margin-left: -11px;"><br>
             <input type="submit" value="Login">
         </form>
 
