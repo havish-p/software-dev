@@ -8,7 +8,7 @@
 <body>
     <div class="form-container">
         <div class="login-header">
-            <img src="{{ url_for('static', filename='logo transperant.png') }}" width="300" hieght="200">
+            <img src="{{ url_for('static', filename='logo transperant.png') }}" class="scaled-image1" required style="margin-left: -11px;">
         </div>
 
         <h2>Login</h2>
@@ -22,7 +22,7 @@
         <form action="{{ url_for('login') }}" method="post">
             <input type="text" id="username" name="username" placeholder="Username" required style="margin-left: -11px;"><br>
             <input type="password" id="password" name="password" placeholder="Password" required style="margin-left: -11px;"><br>
-            <input type="submit" value="Login">
+            <input type="submit" value="Login" class="button-type-1"> 
         </form>
 
         <div class="form-links">

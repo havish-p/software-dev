@@ -50,21 +50,6 @@ form input[type="password"] {
     background-color: #ddd;
 }
 
-/* Submit Button */
-form input[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    font-size: 18px;
-    font-weight: bold;
-    border: 2px solid black;
-    background-color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-form input[type="submit"]:hover {
-    background-color: #f0f0f0;
-}
 
 /* Flash messages */
 p[style*="color: black;"] {
@@ -83,4 +68,20 @@ p[style*="color: black;"] {
 .form-links a {
     text-decoration: underline;
     color: black;
+}
+
+/*button type 1*/
+input[type="submit"].button-type-1 {
+    background-color: #CECCCC;   
+    color: black;                
+    padding: 10px 20px;        
+    border: 2px black;              
+    border-radius: 8px;        
+    font-size: 16px;           
+    cursor: pointer;
+}
+
+.scaled-image1 {
+    width: 110%;
+    height: auto
 }
