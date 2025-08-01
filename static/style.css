@@ -74,14 +74,19 @@ p[style*="color: black;"] {
 input[type="submit"].button-type-1 {
     background-color: #CECCCC;   
     color: black;                
-    padding: 10px 20px;        
-    border: 2px black;              
+    padding: 10px 20px; 
+    border: 2px black;  
     border-radius: 8px;        
     font-size: 16px;           
     cursor: pointer;
 }
-
+/*scale image main logo*/
 .scaled-image1 {
     width: 110%;
     height: auto
+}
+
+/*roate image 90 clockwise*/
+.roatate_90cw {
+  transform: rotate(90deg);  
 }
