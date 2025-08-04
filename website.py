@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -45,12 +45,14 @@ def login():
         conn.close()
 
         if result and check_password_hash(result[0], password):
+            session['username'] = username
             return redirect(url_for('main'))
         else:
             flash("Invalid username or password")
             return redirect(url_for('login'))
 
     return render_template('login.html')
+    
     #register
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -80,7 +82,11 @@ def register():
     #main page
 @app.route('/main')
 def main():
-    return render_template('main page.html')
+    if 'username' in session:
+        username = session['username']
+        return render_template('main page.html', username=username)
+    else:
+        return redirect(url_for('login'))
 
 if __name__ == '__main__':
     app.run(debug=True)
