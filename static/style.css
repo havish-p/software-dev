@@ -75,7 +75,7 @@ input[type="submit"].button-type-1 {
     background-color: #CECCCC;   
     color: black;                
     padding: 10px 20px; 
-    border: 2px black;  
+    border: 2px solid black;  
     border-radius: 8px;        
     font-size: 16px;           
     cursor: pointer;
@@ -89,4 +89,10 @@ input[type="submit"].button-type-1 {
 /*roate image 90 clockwise*/
 .roatate_90cw {
   transform: rotate(90deg);  
+}
+
+/*boarders for things*/
+.boarderthing {
+    border: 2px solid black;
+    border-width: 4px;
 }
