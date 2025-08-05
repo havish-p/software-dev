@@ -86,13 +86,21 @@ input[type="submit"].button-type-1 {
     height: auto
 }
 
-/*roate image 90 clockwise*/
-.roatate_90cw {
-  transform: rotate(90deg);  
-}
-
 /*boarders for things*/
 .boarderthing {
     border: 2px solid black;
     border-width: 4px;
+}
+
+/*logo mini*/
+.logo-mini {
+    position: fixed;
+    top: 75px;
+    right: -5px;
+    /*position of image*/
+    transform: rotate(90deg) scale(0.5);
+    transform-origin: top right;
+    height: auto;
+    width: auto;
+    max-width: none;
 }
