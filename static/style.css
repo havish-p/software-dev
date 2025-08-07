@@ -104,3 +104,18 @@ input[type="submit"].button-type-1 {
     width: auto;
     max-width: none;
 }
+
+/*pfp*/
+.pfp {
+    position: fixed;
+    top: 0px;
+    left: -5px;
+    /*position of image*/
+    transform: scale(0.25);
+    transform-origin: top left;
+    height: auto;
+    width: auto;
+    max-width: none;
+    border: 2px solid black;
+    border-width: 4px;
+}
