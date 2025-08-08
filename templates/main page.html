@@ -1,21 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+    <title>main page</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Lily+Script+One&display=swap" rel="stylesheet">
-<head>
+</head>
 <body>
+  <!-- Top Right Logo -->
   <div>
     <img src="{{ url_for('static', filename='logo shorten transperant.png') }}" class="logo-mini">
-  <div>
-
-  <div>
-    <img src="{{ url_for('static', filename='blankpfp-transperant.png') }} " class='pfp' >
   </div>
-  
-  <div>
-    <h2> welcome {{username}} </h2>
-  
 
+  <!-- Top Left Profile Picture -->
+  <div>
+    <img src="{{ url_for('static', filename='blankpfp-transperant.png') }}" class='pfp'>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>{{username}}</h2>
+    <div class="menu">
+      <a href="/media" class="menu-button">- your media</a>
+      <a href="/media/private" class="menu-button">- Private</a>
+      <a href="/media/public" class="menu-button">- Public</a>
+      <a href="/upload" class="menu-button">- Upload</a>
+      <a href="/collaboration" class="menu-button">- Collaboration</a>
+      <a href="/inspiration" class="menu-button">- Inspiration wall</a>
+      <a href="/settings" class="menu-button">- Setting</a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="section-title">Gallery❯</div>
+      <div class="image-grid">
+        <img src="{{ url_for('static', filename='adventurer.jpg') }}" alt="Artwork 1">
+        <img src="{{ url_for('static', filename='alcamist.jpg') }}" alt="Artwork 2">
+        <img src="{{ url_for('static', filename='HTTYD.jpg') }}" alt="Artwork 3">
+      </div>
+
+      <div class="section-title">New upload❯</div>
+      <div class="image-grid">
+        <img src="{{ url_for('static', filename='rogue.jpg') }}" alt="Upload 1">
+        <img src="{{ url_for('static', filename='Spider Queen.jpg') }}" alt="Upload 2">
+        <img src="{{ url_for('static', filename='stoic.jpg') }}" alt="Upload 3">
+      </div>
+  </div>
 </body>
+</html>
