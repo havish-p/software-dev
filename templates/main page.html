@@ -1,50 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>main page</title>
+    <meta charset="UTF-8">
+    <title>Main Page</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Lily+Script+One&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- Top Right Logo -->
-  <div>
-    <img src="{{ url_for('static', filename='logo shorten transperant.png') }}" class="logo-mini">
-  </div>
 
-  <!-- Top Left Profile Picture -->
-  <div>
-    <img src="{{ url_for('static', filename='blankpfp-transperant.png') }}" class='pfp'>
-  </div>
+  <!-- Top Right Logo -->
+  <header class="top-logo">
+    <img src="{{ url_for('static', filename='logo shorten transperant.png') }}" class="logo-mini" alt="Site Logo">
+  </header>
 
   <!-- Sidebar -->
-  <div class="sidebar">
-    <h2>{{username}}</h2>
-    <div class="menu">
-      <a href="/media" class="menu-button">- your media</a>
-      <a href="/media/private" class="menu-button">- Private</a>
-      <a href="/media/public" class="menu-button">- Public</a>
-      <a href="/upload" class="menu-button">- Upload</a>
-      <a href="/collaboration" class="menu-button">- Collaboration</a>
-      <a href="/inspiration" class="menu-button">- Inspiration wall</a>
-      <a href="/settings" class="menu-button">- Setting</a>
+  <aside class="sidebar">
+    <div class="profile-row">
+      <img src="{{ url_for('static', filename='blankpfp-transperant.png') }}" class="pfp" alt="Profile Picture">
+      <h2 class="username-text">{{ username }}</h2>
     </div>
-  </div>
+
+    <nav class="sidebar-nav">
+      <ul>
+        <li><a href="/media" class="menu-button">Your Media</a></li>
+        <li><a href="/media/private" class="menu-button">Private</a></li>
+        <li><a href="/media/public" class="menu-button">Public</a></li>
+        <li><a href="/upload" class="menu-button">Upload</a></li>
+        <li><a href="/collaboration" class="menu-button">Collaboration</a></li>
+        <li><a href="/inspiration" class="menu-button">Inspiration Wall</a></li>
+        <li><a href="/settings" class="menu-button">Settings</a></li>
+      </ul>
+    </nav>
+  </aside>
 
   <!-- Main Content -->
-  <div class="main-content">
-    <div class="section-title">Gallery❯</div>
+  <main class="main-content">
+    <section>
+      <h3 class="section-title">Gallery</h3>
       <div class="image-grid">
         <img src="{{ url_for('static', filename='adventurer.jpg') }}" alt="Artwork 1">
         <img src="{{ url_for('static', filename='alcamist.jpg') }}" alt="Artwork 2">
         <img src="{{ url_for('static', filename='HTTYD.jpg') }}" alt="Artwork 3">
       </div>
+    </section>
 
-      <div class="section-title">New upload❯</div>
+    <section>
+      <h3 class="section-title">New Upload</h3>
       <div class="image-grid">
         <img src="{{ url_for('static', filename='rogue.jpg') }}" alt="Upload 1">
         <img src="{{ url_for('static', filename='Spider Queen.jpg') }}" alt="Upload 2">
         <img src="{{ url_for('static', filename='stoic.jpg') }}" alt="Upload 3">
       </div>
-  </div>
+    </section>
+  </main>
+
 </body>
 </html>
