@@ -21,20 +21,13 @@ def init_db():
 
 init_db()
 
-# Routes
-    #root
 @app.route('/')
 def root():
     return redirect(url_for('login'))
-    #login
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        print("Request form data:", request.form)
-        if 'username' not in request.form:
-            flash("Username missing from form!")
-            return redirect(url_for('login'))
-        
         username = request.form.get('username')
         password = request.form.get('password')
 
@@ -50,10 +43,8 @@ def login():
         else:
             flash("Invalid username or password")
             return redirect(url_for('login'))
-
     return render_template('login.html')
-    
-    #register
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -66,27 +57,58 @@ def register():
         elif password != confirm:
             flash("Passwords do not match")
         else:
-            conn = sqlite3.connect('users.db')
-            c = conn.cursor()
             try:
                 hashed = generate_password_hash(password)
+                conn = sqlite3.connect('users.db')
+                c = conn.cursor()
                 c.execute("INSERT INTO users (username, password) VALUES (?, ?)", (username, hashed))
                 conn.commit()
+                conn.close()
                 flash("Registration successful. Please log in.")
                 return redirect(url_for('login'))
             except sqlite3.IntegrityError:
                 flash("Username already exists")
-            conn.close()
     return render_template('register.html')
 
-    #main page
 @app.route('/main')
 def main():
     if 'username' in session:
         username = session['username']
-        return render_template('main page.html', username=username)
+        return render_template('main_page.html', username=username)
     else:
         return redirect(url_for('login'))
+
+@app.route('/private')
+def private():
+    if 'username' in session:
+        username = session['username']
+        return render_template('private.html', username=username)
+    else:
+        return redirect(url_for('login'))
+
+
+@app.route('/public')
+def public():
+    if 'username' in session:
+        username = session['username']
+        return render_template('public.html', username=username)
+    else:
+        return redirect(url_for('login'))
+
+@app.route('/settings')
+def settings():
+    if 'username' in session:
+        username = session['username']
+        return render_template('settings.html', username=username)
+    else:
+        return redirect(url_for('login'))
+
+@app.route('/routes')
+def show_routes():
+    routes = sorted([rule.endpoint for rule in app.url_map.iter_rules()])
+    return '<br>'.join(routes)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
