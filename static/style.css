@@ -9,12 +9,8 @@ html, body {
     background-position: center;
     background-attachment: fixed;
     font-family: sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
-/* Headings font */
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Lily Script One', cursive;
     margin: 0;
@@ -37,6 +33,26 @@ h1, h2, h3, h4, h5, h6 {
     max-width: 160px;
     height: auto;
     padding: 10px 0;
+}
+
+/* Only apply to login page */
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Hide sidebar on login page */
+.login-page .sidebar {
+    display: none;
+}
+
+/* Make sure the login form stays on top of background */
+.login-page .form-container {
+    position: relative;
+    z-index: 1;
 }
 
 /* Input Fields */
@@ -98,7 +114,6 @@ input[type="submit"].button-type-1 {
     position: fixed;
     top: 75px;
     right: -5px;
-    /*position of image*/
     transform: rotate(90deg) scale(0.5);
     transform-origin: top right;
     height: auto;
@@ -106,13 +121,14 @@ input[type="submit"].button-type-1 {
     max-width: none;
 }
 
-/*pfp*/
 .pfp {
-  width: 60px; 
-  height: 60px;
-  border: 4px solid black;
-  border-radius: 50%; 
-  object-fit: cover;
+    width: 60px; 
+    height: 60px;
+    border: 4px solid black;
+    border-radius: 50%; 
+    object-fit: cover;
+    margin: 10px auto; 
+    display: block;
 }
 
 .menu-item {
@@ -127,73 +143,74 @@ input[type="submit"].button-type-1 {
   display: block;
 }
 
+/* Main Content */
 .main-content {
-    margin-left: 200px; 
+    margin-left: 220px; 
     padding: 40px 30px;
-    
 }
 
 .section-title {
-  color: #fff;
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  font-family: 'Lily Script One', cursive;
+    color: #fff;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-family: 'Lily Script One', cursive;
 }
 
 .image-grid {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  margin-bottom: 40px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
 }
 
 .image-grid img {
-  width: auto;
-  height: 160px;
-  border-radius: 6px;
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
-  background-color: white;
+    width: auto;
+    height: 240px;
+    border-radius: 6px;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+    background-color: white;
 }
 
 .menu-button {
-  display: block;
-  padding: 10px 15px;
-  background: #e5e5e5;
-  border: 2px solid black; 
-  border-radius: 6px;
-  text-decoration: none;
-  color: black;
-  font-weight: bold;
-  transition: background 0.3s;
+    display: block;
+    padding: 10px 15px;
+    background: #e5e5e5;
+    border: 2px solid black; 
+    border-radius: 6px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    transition: background 0.3s;
 }
 
 .menu-button:hover {
-  background: #d0d0d0;
+    background: #d0d0d0;
 }
 
 .username-text {
-  font-size: 60px;
-  color: black;
+    font-size: 24px;
+    color: black;
 }
 
 .profile-row {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
 }
 
 .sidebar-nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .sidebar-nav li {
-  margin-bottom: 8px;
+    margin-bottom: 8px;
 }
 
+/* Sidebar */
 .sidebar {
     position: fixed;         
     top: 0;                  
@@ -201,6 +218,8 @@ input[type="submit"].button-type-1 {
     height: 100%;            
     width: 200px;            
     z-index: 1000;           
-    padding-top: 75px;       
+    padding-top: 0; 
     overflow-y: auto;        
+    background: none; 
+    box-shadow: none; 
 }
