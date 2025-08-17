@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Lily+Script+One&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    
+
+    <!-- Upload Container -->
+    <div class="upload-container">
+        <form action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+            <!-- File Upload Box -->
+            <div class="upload-box">
+                <input type="file" id="fileInput" name="image" hidden required>
+                <label for="fileInput" class="file-label">
+                    <div class="upload-symbol">⬆</div>
+                    <p><u>Choose a file</u></p>
+                </label>
+            </div>
+
+            <!-- Privacy Options -->
+            <div class="upload-options">
+                <h2>Upload options</h2>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="privacy" value="private" required> Private
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="privacy" value="public" required> Public
+                    </label>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="upload-submit">
+                <button type="submit">Upload</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

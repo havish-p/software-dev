@@ -10,7 +10,7 @@
 
   <!-- Top Right Logo -->
   <header class="top-logo">
-    <img src="{{ url_for('static', filename='logo shorten transperant.png') }}" class="logo-mini" alt="Site Logo">
+    <img src="{{ url_for('static', filename='logo_shorten_transperant.png') }}" class="logo-mini" alt="Site Logo">
   </header>
 
   <!-- Sidebar -->
@@ -36,18 +36,11 @@
     <section>
       <h3 class="section-title">Gallery</h3>
       <div class="image-grid">
-        <img src="{{ url_for('static', filename='adventurer.jpg') }}" alt="Artwork 1">
-        <img src="{{ url_for('static', filename='alcamist.jpg') }}" alt="Artwork 2">
-        <img src="{{ url_for('static', filename='HTTYD.jpg') }}" alt="Artwork 3">
-      </div>
-    </section>
-
-    <section>
-      <h3 class="section-title">New Upload</h3>
-      <div class="image-grid">
-        <img src="{{ url_for('static', filename='rogue.jpg') }}" alt="Upload 1">
-        <img src="{{ url_for('static', filename='Spider Queen.jpg') }}" alt="Upload 2">
-        <img src="{{ url_for('static', filename='stoic.jpg') }}" alt="Upload 3">
+        {% for filename, uploader, privacy in images %}
+          <img src="{{ url_for('uploaded_file', filename=filename) }}" alt="{{ filename }}">
+        {% else %}
+          <p>No images available.</p>
+        {% endfor %}
       </div>
     </section>
   </main>

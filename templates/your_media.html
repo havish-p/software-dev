@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Media</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Lily+Script+One&display=swap" rel="stylesheet">
+</head>
+
+  <!-- Top Right Logo -->
+  <header class="top-logo">
+    <img src="{{ url_for('static', filename='logo shorten transperant.png') }}" class="logo-mini" alt="Site Logo">
+  </header>
+
+<h2>Your Uploaded Images</h2>
+{% for filename, privacy in images %}
+    <p>{{ filename }} - {{ privacy }}</p>
+    <img src="{{ url_for('uploaded_file', filename=filename) }}" width="200">
+{% endfor %}
+
+

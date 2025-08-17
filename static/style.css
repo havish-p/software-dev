@@ -223,3 +223,69 @@ input[type="submit"].button-type-1 {
     background: none; 
     box-shadow: none; 
 }
+
+
+.upload-container {
+    text-align: center;
+    background-color: #e5e5e5;
+    padding: 30px 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+    width: 320px;
+}
+
+.upload-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    z-index: 1000; /* Keep it above other elements */
+}
+
+.upload-icon {
+    transform: rotate(90deg) scale(0.5);
+    transform-origin: top left;
+    height: auto;
+    width: auto;
+    max-width: none;
+}
+
+.upload-box {
+    background: #e0e0e0;
+    padding: 30px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.file-label {
+    display: block;
+    text-align: center;
+    cursor: pointer;
+}
+
+.upload-symbol {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.upload-options h2 {
+    background: #ccc;
+    padding: 5px;
+}
+
+.options {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.option {
+    background: #ccc;
+    padding: 5px 10px;
+    border: 2px solid black;
+    cursor: pointer;
+}
