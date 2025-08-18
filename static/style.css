@@ -289,3 +289,22 @@ input[type="submit"].button-type-1 {
     border: 2px solid black;
     cursor: pointer;
 }
+
+.preview-container {
+    margin-top: 15px;
+    text-align: center;
+}
+
+
+.preview {
+    margin-top: 15px;
+    display: none;
+    text-align: center;
+}
+.preview img {
+    width: 300px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
