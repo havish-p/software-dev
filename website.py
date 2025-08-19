@@ -142,7 +142,7 @@ def media():
     else:
         return redirect(url_for('login'))
 
-# Upload image (improved)
+# Upload image
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():
     if 'username' not in session:
@@ -182,10 +182,7 @@ def upload():
 
     return render_template('upload.html')
 
-# Serve uploaded files
-@app.route('/uploads/<filename>')
-def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
