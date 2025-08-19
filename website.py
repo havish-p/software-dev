@@ -106,6 +106,11 @@ def register():
             conn.close()
     return render_template('register.html')
 
+# Serve uploaded images
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+
 # Main page
 @app.route('/main')
 def main():
@@ -182,6 +187,13 @@ def upload():
 
     return render_template('upload.html')
 
+
+
+
+# Inspiration wall
+@app.route("/inspiration", methods=["GET", "POST"])
+def inspiration_wall_page():
+    return render_template("inspiration_wall.html")
 
 
 if __name__ == '__main__':
