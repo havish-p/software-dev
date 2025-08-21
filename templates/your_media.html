@@ -7,15 +7,38 @@
     <link href="https://fonts.googleapis.com/css2?family=Lily+Script+One&display=swap" rel="stylesheet">
 </head>
 
+<body>
   <!-- Top Right Logo -->
   <header class="top-logo">
-    <img src="{{ url_for('static', filename='logo shorten transperant.png') }}" class="logo-mini" alt="Site Logo">
+    <a href="{{ url_for('main') }}">
+      <img src="{{ url_for('static', filename='logo_shorten_transperant.png') }}" class="logo-mini" alt="Site Logo">
+    </a>
   </header>
 
-<h2>Your Uploaded Images</h2>
-{% for filename, privacy in images %}
-    <p>{{ filename }} - {{ privacy }}</p>
-    <img src="{{ url_for('uploaded_file', filename=filename) }}" width="200">
-{% endfor %}
+    <h2 class="section-title">Your Media</h2>
 
+    <!-- Public Images -->
+    <section>
+        <h3 class="section-subtitle">Public Images</h3>
+        <div class="image-grid">
+            {% for filename, privacy in images %}
+                {% if privacy == 'public' %}
+                    <img src="{{ url_for('uploaded_file', filename=filename) }}" class="gallery-img">
+                {% endif %}
+            {% endfor %}
+        </div>
+    </section>
 
+    <!-- Private Images -->
+    <section>
+        <h3 class="section-subtitle">Private Images</h3>
+        <div class="image-grid">
+            {% for filename, privacy in images %}
+                {% if privacy == 'private' %}
+                    <img src="{{ url_for('uploaded_file', filename=filename) }}" class="gallery-img">
+                {% endif %}
+            {% endfor %}
+        </div>
+    </section>
+</body>
+</html>

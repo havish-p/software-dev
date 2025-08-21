@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inspiration Wall</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Lily+Script+One&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Top Right Logo -->
+  <header class="top-logo">
+    <a href="{{ url_for('main') }}">
+      <img src="{{ url_for('static', filename='logo_shorten_transperant.png') }}" class="logo-mini" alt="Site Logo">
+    </a>
+  </header>
+
+  <h2 class="section-title">Inspiration Wall</h2>
+
+  <!-- Randomizer Controls -->
+  <div class="controls">
+    <form method="POST">
+      <label for="word_count">Number of words:</label>
+      <select name="word_count" id="word_count">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="30">30</option>
+      </select>
+      <button type="submit" class="randomize-btn">✨ Randomize ✨</button>
+    </form>
+  </div>
+
+  <!-- Word Grid -->
+  <div class="words-container">
+      {% for word in words %}
+          <span class="inspiration-word">{{ word }}</span>
+      {% endfor %}
+  </div>
+
+</body>
+</html>

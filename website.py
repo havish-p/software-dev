@@ -1,9 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session, send_from_directory
+from flask import Flask, render_template, request, redirect, url_for, flash, session, send_from_directory, current_app
 import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 import uuid
 import os
+import random
 
 app = Flask(__name__)
 app.secret_key = 'One_Piece'
@@ -50,6 +51,11 @@ init_db()
 # --------------------
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+def get_db_connection():
+    conn = sqlite3.connect("users.db")
+    conn.row_factory = sqlite3.Row
+    return conn
 
 # --------------------
 # Routes
@@ -111,37 +117,51 @@ def register():
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
-# Main page
+# Main page (public images only)
 @app.route('/main')
 def main():
     if 'username' not in session:
         return redirect(url_for('login'))
 
-    username = session['username']
-    conn = sqlite3.connect('users.db')
-    c = conn.cursor()
-
-    # Only public images
-    c.execute("""
+    conn = get_db_connection()
+    rows = conn.execute("""
         SELECT filename, uploader, privacy
         FROM images
         WHERE privacy = 'public'
         ORDER BY id DESC
-    """)
-    images = c.fetchall()
+    """).fetchall()
+
+    # Auto-clean missing files
+    images = []
+    for row in rows:
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], row['filename'])
+        if os.path.exists(filepath):
+            images.append((row['filename'], row['uploader'], row['privacy']))
+        else:
+            conn.execute("DELETE FROM images WHERE filename = ?", (row['filename'],))
+            conn.commit()
+
     conn.close()
+    return render_template('main_page.html', username=session['username'], images=images)
 
-    return render_template('main_page.html', username=username, images=images)
-
-# Your media page
+# Your media page (private + public)
 @app.route('/media')
 def media():
     if 'username' in session:
         username = session['username']
-        conn = sqlite3.connect('users.db')
-        c = conn.cursor()
-        c.execute("SELECT filename, privacy FROM images WHERE uploader = ?", (username,))
-        images = c.fetchall()
+        conn = get_db_connection()
+        rows = conn.execute("SELECT filename, privacy FROM images WHERE uploader = ?", (username,)).fetchall()
+
+        # Auto-clean missing files
+        images = []
+        for row in rows:
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], row['filename'])
+            if os.path.exists(filepath):
+                images.append((row['filename'], row['privacy']))
+            else:
+                conn.execute("DELETE FROM images WHERE filename = ?", (row['filename'],))
+                conn.commit()
+
         conn.close()
         return render_template('your_media.html', username=username, images=images)
     else:
@@ -187,14 +207,59 @@ def upload():
 
     return render_template('upload.html')
 
-
-
-
 # Inspiration wall
+WORDS = [
+    "Creativity", "Passion", "Dream", "Vision", "Innovation",
+    "Inspire", "Art", "Design", "Imagination", "Expression",
+    "Color", "Light", "Flow", "Energy", "Concept", "Hope",
+    "Believe", "Strength", "Courage", "Balance", "Growth",
+    "Harmony", "Peace", "Focus", "Mindset", "Change",
+    "Transform", "Magic", "Spark", "Freedom", "Clarity",
+    "Love", "Compassion", "Empathy", "Kindness", "Gratitude",
+    "Patience", "Determination", "Discipline", "Resilience",
+    "Joy", "Happiness", "Adventure", "Explore", "Journey",
+    "Curiosity", "Wonder", "Discovery", "Potential", "Bravery",
+    "Integrity", "Authenticity", "Trust", "Respect", "Wisdom",
+    "Knowledge", "Learning", "Teaching", "Sharing", "Community",
+    "Unity", "Together", "Support", "Collaboration", "Teamwork",
+    "Leadership", "Challenge", "Opportunity", "Success", "Failure",
+    "Persistence", "Dedication", "Commitment", "Excellence", "Ambition",
+    "Focus", "Drive", "Momentum", "Flow", "Visionary",
+    "Strategy", "Innovation", "Technology", "Future", "Possibility",
+    "Limitless", "Boundless", "Faith", "Healing", "Nature",
+    "Earth", "Sky", "Ocean", "Mountain", "River",
+    "Forest", "Sun", "Moon", "Stars", "Galaxy",
+    "Universe", "Energy", "Light", "Shadow", "Fire",
+    "Water", "Air", "Earth", "Spirit", "Soul",
+    "Heart", "Mind", "Body", "Connection", "Truth",
+    "Beauty", "Artistry", "Simplicity", "Elegance", "Strength"
+]
+
+
 @app.route("/inspiration", methods=["GET", "POST"])
 def inspiration_wall_page():
-    return render_template("inspiration_wall.html")
+    max_words = len(WORDS)
+    default_count = 10  # how many words to show initially
 
+    if request.method == "POST":
+        try:
+            # handle both "word_count" and "count" form inputs
+            count = int(
+                request.form.get("word_count") or request.form.get("count") or default_count
+            )
+            count = max(1, min(count, max_words))  # clamp value safely
+        except ValueError:
+            count = default_count
+    else:
+        count = default_count
+
+    random_words = random.sample(WORDS, k=count)
+    return render_template(
+        "inspiration_wall.html",
+        words=random_words,
+        max_words=max_words,
+        default_count=count
+    )
 
 if __name__ == '__main__':
     app.run(debug=True)
