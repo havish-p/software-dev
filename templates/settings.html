@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Settings</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Lily+Script+One&display=swap" rel="stylesheet">
+    <style>
+    </style>
+</head>
+<body>
+
+  <!-- Top Right Logo -->
+  <header class="top-logo">
+    <a href="{{ url_for('main') }}">
+      <img src="{{ url_for('static', filename='logo_shorten_transperant.png') }}" class="logo-mini" alt="Site Logo">
+    </a>
+  </header>
+    
+  <h2 class="section-title">Settings</h2>
+
+  <h2>Logged in as: {{ username }}</h2>
+
+  <!-- Flash messages -->
+  {% with messages = get_flashed_messages() %}
+      {% if messages %}
+          <ul>
+          {% for message in messages %}
+              <li style="color: red;">{{ message }}</li>
+          {% endfor %}
+          </ul>
+      {% endif %}
+  {% endwith %}
+
+  <div class="settings-container">
+      <!-- Forms Column -->
+      <div class="form-column">
+          <!-- Change Username -->
+          <div class="form-container">
+            <h3>Change Username</h3>
+            <form method="POST" action="{{ url_for('change_username') }}">
+                <input type="text" name="new_username" placeholder="New Username" required>
+                <button type="submit" class="button-type-1">Update Username</button>
+            </form>
+          </div>
+
+          <!-- Change Password -->
+          <div class="form-container" style="margin-top: 20px;">
+            <h3>Change Password</h3>
+            <form method="POST" action="{{ url_for('change_password') }}">
+                <input type="password" name="current_password" placeholder="Current Password" required>
+                <input type="password" name="new_password" placeholder="New Password" required>
+                <input type="password" name="confirm_password" placeholder="Confirm New Password" required>
+                <button type="submit" class="button-type-1">Update Password</button>
+            </form>
+          </div>
+      </div>
+
+      <!-- Images Column -->
+      <div class="image-column">
+          {% if images %}
+              <h3>Your Uploaded Images</h3>
+              <div class="image-grid">
+                  {% for img in images %}
+                      <img src="{{ url_for('uploaded_file', filename=img['filename']) }}" alt="Uploaded Image">
+                  {% endfor %}
+              </div>
+          {% endif %}
+      </div>
+  </div>
+
+</body>
+</html>
